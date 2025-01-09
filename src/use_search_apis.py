@@ -17,7 +17,8 @@ import pandas as pd
 from xml.etree import ElementTree as ET
 import os
 
-S2_API_KEY=os.environ["S2_API_KEY"]
+# S2_API_KEY=os.environ["S2_API_KEY"]
+# S2_API_KEY=''
 # YOUR_API_KEY = os.environ["YOUR_API_KEY"]
 PES2O_INDEX_URL="YOUR_PES2O_INDEX_URL"
 
@@ -39,8 +40,9 @@ def get_paper_data(paper_id):
     # Define which details about the paper you would like to receive in the response
     paper_data_query_params = {'fields': 'title,year,abstract,url,authors.name,citationCount,year,openAccessPdf'}
     # Send the API request and store the response in a variable
-    api_key = S2_API_KEY
-    headers = {'x-api-key': api_key}
+    # api_key = S2_API_KEY
+    # headers = {'x-api-key': api_key}
+    headers = {}
     try:
         response = requests.get(url, params=paper_data_query_params, headers=headers)
         # time.sleep(0.1)
@@ -63,8 +65,9 @@ def get_paper_data(paper_id):
     # Define which details about the paper you would like to receive in the response
     paper_data_query_params = {'fields': 'title,year,abstract,url,authors.name,citationCount,year,openAccessPdf'}
     # Send the API request and store the response in a variable
-    api_key = S2_API_KEY
-    headers = {'x-api-key': api_key}
+    # api_key = S2_API_KEY
+    # headers = {'x-api-key': api_key}
+    headers = {}
     try:
         response = requests.get(url, params=paper_data_query_params, headers=headers)
         # time.sleep(0.1)
@@ -97,9 +100,10 @@ def search_paper_via_query(query, max_paper_num=10):
     if "Search queries: " in query:
         query = query.split("Search queries: ")[1]
     query_params = {'query': query, 'limit': max_paper_num, "minCitationCount": 10, "sort": "citationCount:desc", 'fields': 'title,year,abstract,authors.name,citationCount,year,url,externalIds'}
-    api_key = S2_API_KEY
+    # api_key = S2_API_KEY
     # Define headers with API key
-    headers = {'x-api-key': api_key}
+    # headers = {'x-api-key': api_key}
+    headers = {}
     # Send the API request
     response = requests.get('https://api.semanticscholar.org/graph/v1/paper/search', params=query_params, headers=headers)
     time.sleep(0.5)
@@ -120,8 +124,9 @@ def search_paper_via_query(query, max_paper_num=10):
 
 def search_paper_via_title(title):
     query_params = {'query': title, 'fields': 'title,year,abstract,authors.name,citationCount,year,url,externalIds,corpusId'}
-    api_key = S2_API_KEY
-    headers = {'x-api-key': api_key}
+    # api_key = S2_API_KEY
+    # headers = {'x-api-key': api_key}
+    headers = {}
     # Send the API request
     try:
         response = requests.get('https://api.semanticscholar.org/graph/v1/paper/search/match', params=query_params, headers=headers)
@@ -172,8 +177,9 @@ def search_semantic_scholar(question, client, model_name):
     return final_paper_list, new_keywords
 
 def batch_paper_data(arxiv_ids):
-    api_key = S2_API_KEY
-    headers = {'x-api-key': api_key}
+    # api_key = S2_API_KEY
+    # headers = {'x-api-key': api_key}
+    headers = {}
     r = requests.post(
         'https://api.semanticscholar.org/graph/v1/paper/batch',
         params={'fields': 'referenceCount,citationCount,title,url,publicationDate,abstract'},
@@ -183,8 +189,9 @@ def batch_paper_data(arxiv_ids):
     return {id: data for id, data in zip(arxiv_ids, response_data)}
 
 def batch_paper_data_pubmed(pubmed_ids):
-    api_key = S2_API_KEY
-    headers = {'x-api-key': api_key}
+    # api_key = S2_API_KEY
+    # headers = {'x-api-key': api_key}
+    headers = {}
     r = requests.post(
         'https://api.semanticscholar.org/graph/v1/paper/batch',
         params={'fields': 'referenceCount,citationCount,title,url,publicationDate,abstract'},
@@ -194,8 +201,9 @@ def batch_paper_data_pubmed(pubmed_ids):
     return {id: data for id, data in zip(pubmed_ids, response_data)}
 
 def batch_paper_data_SS_ID(paper_ids):
-    api_key = S2_API_KEY
-    headers = {'x-api-key': api_key}
+    # api_key = S2_API_KEY
+    # headers = {'x-api-key': api_key}
+    headers = {}
     r = requests.post(
         'https://api.semanticscholar.org/graph/v1/paper/batch',
         params={'fields': 'referenceCount,citationCount,title,url,publicationDate,abstract,year,authors.name'},
