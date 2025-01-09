@@ -142,7 +142,9 @@ def main():
         if args.input_file.endswith("jsonl"):
             data = load_jsonlines(args.input_file)
         else:
-            data = json.load(open(args.input_file))
+            with open(args.input_file) as f:
+                line = f.readline()
+            data = json.loads(line)
             if "data" in data:
                 data = data["data"]
     elif args.dataset is not None:
